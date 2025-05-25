@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: El Amanecer de la Empresa Agentiva</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Infographic Narrative & Structure Plan: 
+        1. Hero: El Amanecer Agentivo (Título, Hook, Stat Clave).
+        2. Paradigma: De SaaS a Agentes (Flujo Evolución, Tabla Comparativa).
+        3. Disrupción Mercado: Crecimiento IA Agentiva, Impacto SaaS, Adopción IA.
+        4. Nuevos Horizontes: Monetización, IA Vertical.
+        5. Motor Innovación: Inversión VC, Startups Notables.
+        6. Gigantes en Movimiento: Adaptación Empresas Establecidas.
+        7. Futuro Agentivo: Capacidades Futuras, Desafíos Clave.
+        8. Conclusión: Navegando la Nueva Era.
+    -->
+    <!-- Visualization Choices Justification Summary: 
+        Todas las gráficas son Chart.js (Canvas). Diagramas y layouts con HTML/CSS y Tailwind. 
+        Se evita SVG y Mermaid JS. Se aplica wrapping de etiquetas y configuración de tooltips en Chart.js.
+        - Big Numbers: HTML Text.
+        - Flow Charts/Diagrams: HTML/CSS (Flexbox/Grid, Borders).
+        - Tables: HTML <table>.
+        - Bar, Line, Donut, Stacked Bar, Bubble Charts: Chart.js (Canvas).
+        - Lists: HTML <ul>.
+        - Card Layouts: HTML/CSS (Flexbox/Grid).
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F5; /* Light Gray */
+            color: #333333;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Example max-width, can be adjusted per chart */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px; /* Taller on medium screens */
+            }
+        }
+        @media (min-width: 1024px) {
+            .chart-container {
+                height: 400px; /* Taller on large screens */
+            }
+        }
+        .hero-bg {
+            background-color: #1A237E; /* Dark Blue */
+            color: #FFFFFF; /* Light Text */
+        }
+        .section-title {
+            color: #1A237E; /* Dark Blue */
+        }
+        .stat-number {
+            color: #FFA500; /* Primary Accent Orange */
+            font-weight: 700;
+        }
+        .accent-teal { color: #20B2AA; }
+        .accent-yellow { color: #FFD700; }
+        .accent-pink { color: #FF69B4; }
+
+        .flow-chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .flow-chart-node {
+            background-color: #FFFFFF;
+            border: 2px solid #20B2AA; /* Teal */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 300px;
+        }
+        .flow-chart-arrow {
+            font-size: 2rem;
+            color: #FFA500; /* Orange */
+            transform: rotate(90deg);
+        }
+         @media (min-width: 768px) {
+            .flow-chart-container {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .flow-chart-arrow {
+                transform: rotate(0deg);
+            }
+        }
+        .comparison-table th {
+            background-color: #1A237E; /* Dark Blue */
+            color: #FFFFFF; /* Light Text */
+        }
+        .comparison-table td, .comparison-table th {
+            border: 1px solid #E0E0E0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .icon-placeholder {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50 hidden md:block">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-semibold text-[#1A237E]">Empresa Agentiva</div>
+                <div class="flex space-x-4">
+                    <a href="#hero" class="text-gray-700 hover:text-[#FFA500]">Inicio</a>
+                    <a href="#paradigma" class="text-gray-700 hover:text-[#FFA500]">Paradigma</a>
+                    <a href="#disrupcion" class="text-gray-700 hover:text-[#FFA500]">Disrupción</a>
+                    <a href="#horizontes" class="text-gray-700 hover:text-[#FFA500]">Horizontes</a>
+                    <a href="#inversion" class="text-gray-700 hover:text-[#FFA500]">Inversión</a>
+                    <a href="#futuro" class="text-gray-700 hover:text-[#FFA500]">Futuro</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero-bg py-16 md:py-24">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">El Amanecer de la Empresa Agentiva</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">La transformación del SaaS en la era de los agentes de Inteligencia Artificial.</p>
+            <div class="text-lg mb-4">Satya Nadella, CEO de Microsoft:</div>
+            <blockquote class="text-2xl italic font-semibold mb-12">"El SaaS tradicional ha muerto."</blockquote>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <div class="md:col-span-1 flex justify-center items-center">
+                     <div class="p-6 bg-white/20 rounded-lg shadow-xl">
+                        <div class="text-6xl stat-number">24.5</div>
+                        <div class="text-xl mt-2 text-white">MIL MILLONES USD</div>
+                        <p class="text-sm text-gray-200 mt-1">Mercado Global de IA Agentiva Empresarial Proyectado para 2030</p>
+                    </div>
+                </div>
+                <div class="md:col-span-2 text-left text-lg md:text-xl">
+                    <p class="mb-4">La industria del software se encuentra en un punto de inflexión. Los agentes de IA no son una simple mejora, sino un cambio arquitectónico fundamental que redefine cómo se concibe, desarrolla y utiliza el software empresarial. </p>
+                    <p>Esta nueva era de "economía de agentes de IA" promete una eficiencia sin precedentes y nuevas oportunidades, pero también exige una adaptación estratégica por parte de todas las empresas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="paradigma" class="py-12">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-4">De SaaS a Agentes Inteligentes</h2>
+            <p class="text-lg text-center text-gray-700 mb-12 max-w-2xl mx-auto">La lógica del software empresarial está migrando desde aplicaciones estáticas hacia una capa de IA dinámica que orquesta tareas y flujos de trabajo de manera autónoma.</p>
+
+            <div class="card">
+                <h3 class="text-2xl font-semibold section-title mb-6 text-center">Evolución de la Lógica del Software</h3>
+                <p class="text-gray-700 mb-8 text-center">Los agentes de IA actúan como orquestadores inteligentes, integrando múltiples plataformas y tomando decisiones sin estar ligados a un único backend. Las herramientas SaaS evolucionan a ser habilitadores de dominio o repositorios de datos.</p>
+                <div class="flow-chart-container items-stretch">
+                    <div class="flow-chart-node flex flex-col justify-center">
+                        <h4 class="font-semibold text-lg mb-2 text-[#1A237E]">SaaS Tradicional</h4>
+                        <p class="text-sm text-gray-600">Usuario interactúa con GUI ➔ Lógica en la App ➔ Base de Datos Única</p>
+                    </div>
+                    <div class="flow-chart-arrow flex items-center justify-center text-4xl md:text-5xl text-[#FFA500]">➔</div>
+                    <div class="flow-chart-node flex flex-col justify-center">
+                        <h4 class="font-semibold text-lg mb-2 text-[#1A237E]">IA Agentiva</h4>
+                        <p class="text-sm text-gray-600">Usuario/Lenguaje Natural ➔ Orquestador de Agentes IA ➔ Múltiples SaaS/DBs/APIs</p>
+                    </div>
+                </div>
+                <p class="text-gray-700 mt-8 text-center">Tecnologías como el Protocolo de Contexto de Modelo (MCP) y la Web de Lenguaje Natural (NLWeb) son cruciales para esta interoperabilidad, permitiendo a los agentes acceder y actuar sobre datos en tiempo real de forma estandarizada.</p>
+            </div>
+
+            <div class="card mt-12">
+                <h3 class="text-2xl font-semibold section-title mb-6 text-center">SaaS Tradicional vs. IA Agentiva</h3>
+                <p class="text-gray-700 mb-8 text-center">La siguiente tabla resume las diferencias fundamentales entre ambos paradigmas, destacando el profundo cambio en la arquitectura, interacción y valor del software empresarial.</p>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>SaaS Tradicional</th>
+                                <th>IA Agentiva</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">Interfaz de Usuario Primaria</td>
+                                <td>GUI de la Aplicación</td>
+                                <td>Lenguaje Natural / Capa de Orquestación</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Ubicación de la Lógica de Negocio</td>
+                                <td>Dentro de la Aplicación</td>
+                                <td>Capa de IA / Cerebro del Agente</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Interacción con Datos</td>
+                                <td>CRUD vía Aplicación</td>
+                                <td>Acceso Directo a Datos / CRUD Multi-Repositorio</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Estilo de Flujo de Trabajo</td>
+                                <td>Predefinido / Estático</td>
+                                <td>Dinámico / Adaptativo</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Rol Humano</td>
+                                <td>Entrada de Datos / Análisis Manual</td>
+                                <td>Supervisión Estratégica / Manejo de Excepciones</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">Tecnología Clave</td>
+                                <td>Base de Datos + Código de Aplicación</td>
+                                <td>LLMs + MCP + APIs</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="disrupcion" class="py-12 bg-gray-100 -mx-6 px-6 rounded-lg">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-4">La Disrupción del Mercado SaaS</h2>
+            <p class="text-lg text-center text-gray-700 mb-12 max-w-2xl mx-auto">El auge de los agentes de IA está impactando directamente los modelos de negocio y las fuentes de ingresos tradicionales del SaaS, al tiempo que impulsa un crecimiento exponencial en el nuevo mercado agentivo.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-4">Proyección del Mercado Global de IA Agentiva</h3>
+                    <p class="text-sm text-gray-600 mb-4">Se espera un crecimiento explosivo, alcanzando los $24.50 mil millones para 2030, con una Tasa de Crecimiento Anual Compuesta (TCAC) del 46.2%.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="marketGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-4">Impacto en Ingresos SaaS Tradicionales</h3>
+                     <p class="text-sm text-gray-600 mb-4">Un informe de 2024 reveló que el 55% de las empresas SaaS con modelos de precios tradicionales experimentaron una reducción media de ingresos del 22% entre 2023 y 2024.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="saasImpactChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-8">
+                <h3 class="text-xl font-semibold section-title mb-4 text-center">Adopción Proyectada de IA en Empresas (Gartner)</h3>
+                <p class="text-sm text-gray-600 mb-6 text-center">La integración de la IA y los agentes agentivos se acelerará en los próximos años, transformando el panorama del software empresarial.</p>
+                <div class="chart-container h-72 md:h-96">
+                    <canvas id="aiAdoptionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="horizontes" class="py-12">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-4">Nuevos Horizontes: Monetización e IA Vertical</h2>
+            <p class="text-lg text-center text-gray-700 mb-12 max-w-2xl mx-auto">La era agentiva impulsa un cambio hacia la fijación de precios basada en el valor y el auge de soluciones de IA especializadas para industrias específicas.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-6"><span class="icon-placeholder accent-teal">💰</span>Nuevas Estrategias de Monetización</h3>
+                    <p class="text-gray-700 mb-4">Los modelos de ingresos se están realineando con el valor tangible que los agentes de IA entregan:</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><strong>Precios Basados en Resultados o Valor:</strong> Coste alineado con el impacto y eficiencia lograda.</li>
+                        <li><strong>Monetización de Acceso y Capacidades Mejoradas:</strong> Ingresos por acceso a servidores MCP especializados o agentes más potentes.</li>
+                        <li><strong>Modelos de "Servicio como Software":</strong> Transformación de tareas intensivas en mano de obra en soluciones de software escalables.</li>
+                        <li><strong>Evolución de Suscripciones:</strong> Basadas en "capacidad del agente" o "rendimiento de decisiones".</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-4"><span class="icon-placeholder accent-yellow">🚀</span>El Auge de la IA Vertical</h3>
+                    <p class="text-gray-700 mb-4">Las soluciones de IA diseñadas para industrias específicas (salud, finanzas, legal) están ganando tracción rápidamente.</p>
+                    <div class="text-center py-4">
+                        <div class="text-5xl stat-number">400%</div>
+                        <p class="text-lg text-gray-700 mt-2">Crecimiento Interanual de Empresas de IA Vertical (Bessemer Venture Partners)</p>
+                    </div>
+                    <p class="text-gray-700 mt-4">Estas soluciones ofrecen experiencia de dominio profunda, motores de razonamiento afinados y cumplimiento normativo, creando "fosos" competitivos difíciles de replicar.</p>
+                    <p class="text-sm text-gray-600 mt-2">Ejemplos: Abridge (salud), EvenUp (legal), Feedzai (finanzas).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="inversion" class="py-12 bg-gray-100 -mx-6 px-6 rounded-lg">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-4">El Motor de la Innovación: Inversión y Startups</h2>
+            <p class="text-lg text-center text-gray-700 mb-12 max-w-2xl mx-auto">El capital de riesgo fluye hacia la IA agentiva, aunque con un escrutinio creciente sobre la viabilidad y el valor real de las propuestas.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 card">
+                    <h3 class="text-xl font-semibold section-title mb-4">Tendencias de Inversión en IA (2022-2024)</h3>
+                    <p class="text-sm text-gray-600 mb-4">Se observa una inversión masiva en el ecosistema de IA, desde infraestructura hasta aplicaciones generativas y agentivas.</p>
+                    <div class="chart-container h-72 md:h-96">
+                        <canvas id="aiInvestmentChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-6"><span class="icon-placeholder accent-pink">🌟</span>Inversiones Notables en Agentes de IA</h3>
+                    <p class="text-gray-700 mb-4">Grandes rondas de financiación destacan el apetito por startups que lideran la innovación en agentes de IA:</p>
+                    <ul class="space-y-3">
+                        <li class="p-3 bg-white rounded-md shadow">
+                            <span class="font-semibold text-[#1A237E]">xAI:</span> <span class="stat-number text-lg">$6 Mil Millones</span> (Serie C, Dic 2024)
+                        </li>
+                        <li class="p-3 bg-white rounded-md shadow">
+                            <span class="font-semibold text-[#1A237E]">Lambda:</span> <span class="stat-number text-lg">$480 Millones</span> (Serie D, Dic 2024)
+                        </li>
+                        <li class="p-3 bg-white rounded-md shadow">
+                            <span class="font-semibold text-[#1A237E]">Moonvalley:</span> <span class="stat-number text-lg">~$114 Millones</span> (Total, 2024-2025)
+                        </li>
+                         <li class="p-3 bg-white rounded-md shadow">
+                            <span class="font-semibold text-[#1A237E]">SandboxAQ:</span> Valoración <span class="stat-number text-lg">~$6.5 Mil Millones</span> (Serie E, Oct 2024)
+                        </li>
+                    </ul>
+                    <p class="text-sm text-gray-600 mt-4">La valoración mediana de Serie A para startups de IA se situó en ~$62M a principios de 2025.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="empresas" class="py-12">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-4">Gigantes en Movimiento: Adaptación de Empresas Establecidas</h2>
+            <p class="text-lg text-center text-gray-700 mb-12 max-w-2xl mx-auto">Los líderes del SaaS no son meros espectadores; están integrando activamente agentes de IA para potenciar sus plataformas y mantener su relevancia.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-lg mb-2 text-[#1A237E]"><span class="icon-placeholder">📦</span>Box</h4>
+                    <p class="text-sm text-gray-600"><strong>Iniciativa:</strong> Agente de IA para Microsoft 365 Copilot y agentes nativos. <br><strong>Beneficio:</strong> Interacción inteligente y segura con contenido en Box, aprovechando el ecosistema MCP.</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-lg mb-2 text-[#1A237E]"><span class="icon-placeholder"> 프로세스</span>Celonis</h4>
+                    <p class="text-sm text-gray-600"><strong>Iniciativa:</strong> Inteligencia de Procesos para Microsoft Copilot Studio. <br><strong>Beneficio:</strong> Proporciona contexto de negocio a los agentes de IA para una toma de decisiones más efectiva.</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-lg mb-2 text-[#1A237E]"><span class="icon-placeholder">💻</span>SAP</h4>
+                    <p class="text-sm text-gray-600"><strong>Iniciativa:</strong> Asistente de IA Joule y "viaje agentivo". <br><strong>Beneficio:</strong> Mejora la productividad del desarrollador y planea la creación de agentes personalizados en el ecosistema SAP.</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-lg mb-2 text-[#1A237E]"><span class="icon-placeholder">☁️</span>Salesforce</h4>
+                    <p class="text-sm text-gray-600"><strong>Iniciativa:</strong> Einstein Copilot & Copilot Studio (Plataforma Einstein 1). <br><strong>Beneficio:</strong> IA conversacional en el CRM, con personalización y una capa de confianza para la seguridad de datos.</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-lg mb-2 text-[#1A237E]"><span class="icon-placeholder">🤝</span>Atlassian</h4>
+                    <p class="text-sm text-gray-600"><strong>Iniciativa:</strong> Atlassian Intelligence y Rovo. <br><strong>Beneficio:</strong> IA integrada en Jira y Confluence para automatización, resúmenes y búsqueda en lenguaje natural.</p>
+                </div>
+                 <div class="card transform hover:scale-105 transition-transform duration-300 bg-[#1A237E] text-white">
+                    <h4 class="font-semibold text-lg mb-2 text-[#FFA500]"><span class="icon-placeholder">💡</span>Estrategia Común</h4>
+                    <p class="text-sm text-gray-200">Todas estas empresas buscan potenciar sus ofertas con IA, facilitar la creación de agentes personalizados por sus clientes y asegurar la interoperabilidad y seguridad de los datos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="futuro" class="py-12 bg-gray-100 -mx-6 px-6 rounded-lg">
+            <h2 class="text-3xl md:text-4xl font-bold section-title text-center mb-4">El Futuro es Agentivo: Capacidades y Desafíos</h2>
+            <p class="text-lg text-center text-gray-700 mb-12 max-w-2xl mx-auto">Los agentes de IA prometen capacidades aún más sofisticadas, pero su adopción generalizada requiere navegar riesgos significativos y fomentar la estandarización.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-6"><span class="icon-placeholder accent-teal">🔮</span>Capacidades Futuras de los Agentes</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">💡</span> <strong>Razonamiento Mejorado:</strong> Modelos superando benchmarks en lógica, matemáticas y codificación.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">👁️</span> <strong>Procesamiento Multimodal Avanzado:</strong> Integración de texto, voz, imágenes y vídeo.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">🧠</span> <strong>Memoria y Aprendizaje Continuo:</strong> Gráficos de conocimiento dinámicos y evolución de flujos.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">🤖</span> <strong>Interacción con el Mundo Físico:</strong> Potencial conexión con la robótica.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">✅</span> <strong>Autovalidación y Planificación Basada en Simulación:</strong> Mayor fiabilidad y menos alucinaciones.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold section-title mb-6"><span class="icon-placeholder accent-yellow">🛡️</span>Desafíos Clave en la Economía de Agentes</h3>
+                     <p class="text-gray-700 mb-4">La adopción masiva de agentes de IA conlleva riesgos que deben gestionarse proactivamente:</p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">🔒</span> <strong>Seguridad:</strong> Mayor superficie de ataque, manipulación, necesidad de autenticación fuerte y monitorización continua.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">⚙️</span> <strong>Fiabilidad:</strong> Decisiones impredecibles, razonamiento opaco, necesidad de manejo robusto de errores y XAI.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">🤫</span> <strong>Privacidad de Datos:</strong> Cumplimiento de GDPR/CCPA, gobernanza de datos, interacciones seguras.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">⚖️</span> <strong>Ética:</strong> Sesgos algorítmicos, rendición de cuentas, desalineación de valores, impacto social.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">🔗</span> <strong>Estandarización:</strong> Necesidad de interoperabilidad (MCP, A2A) para evitar fragmentación y dependencia.</li>
+                        <li class="flex items-start"><span class="icon-placeholder text-xl mr-2">👥</span> <strong>Impacto Laboral:</strong> Potencial disrupción del mercado laboral y necesidad de recualificación.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="py-16 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold section-title mb-6">Navegando la Nueva Era Agentiva</h2>
+            <p class="text-lg text-gray-700 mb-8 max-w-3xl mx-auto">La transición hacia una infraestructura dominada por agentes de IA es un cambio de paradigma que redefine la eficiencia, la innovación y la naturaleza del trabajo. Prosperar en este futuro exigirá agilidad, una mentalidad de "IA primero", inversión en talento y una profunda comprensión de cómo los agentes pueden aumentar las capacidades humanas.</p>
+            <p class="text-lg text-gray-700 font-semibold">La pregunta ya no es si los agentes de IA transformarán la empresa, sino cuán rápido y cuán preparados estaremos para ello.</p>
+            <div class="mt-10">
+                <a href="#hero" class="bg-[#FFA500] hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-colors duration-300">Volver al Inicio</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#1A237E] text-white py-8 text-center">
+        <p>&copy; 2025 Infografía sobre la Empresa Agentiva. Basado en el informe "El Amanecer de la Empresa Agentiva".</p>
+        <p class="text-sm mt-2">Todos los datos y proyecciones son extraídos o inferidos del informe de investigación proporcionado.</p>
+    </footer>
+
+    <script>
+        const CHART_COLORS = {
+            orange: '#FFA500',
+            teal: '#20B2AA',
+            yellow: '#FFD700',
+            pink: '#FF69B4',
+            darkBlue: '#1A237E',
+            lightBlue: '#64B5F6',
+            grey: '#B0BEC5'
+        };
+
+        function wrapLabels(label, maxWidth) {
+            if (typeof label !== 'string' || label.length <= maxWidth) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        }
+        
+        const commonTooltipCallbacks = {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                  return label.join(' ');
+                } else {
+                  return label;
+                }
+            }
+        };
+
+        // Market Growth Chart
+        const marketGrowthCtx = document.getElementById('marketGrowthChart');
+        if (marketGrowthCtx) {
+            new Chart(marketGrowthCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['2024', '2026', '2028', '2030'],
+                    datasets: [{
+                        label: 'Mercado Global IA Agentiva (Miles de Millones USD)',
+                        data: [2.59, 7.0, 15.0, 24.50], // Estimated intermediate values
+                        backgroundColor: CHART_COLORS.teal,
+                        borderColor: CHART_COLORS.teal,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Miles de Millones USD' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: commonTooltipCallbacks }
+                    }
+                }
+            });
+        }
+
+        // SaaS Impact Chart
+        const saasImpactCtx = document.getElementById('saasImpactChart');
+        if (saasImpactCtx) {
+            new Chart(saasImpactCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['SaaS Afectadas (Reducción Ingresos)', 'SaaS No Afectadas Directamente'],
+                    datasets: [{
+                        label: 'Impacto en Ingresos SaaS',
+                        data: [55, 45],
+                        backgroundColor: [CHART_COLORS.orange, CHART_COLORS.grey],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: { 
+                            callbacks: {
+                                title: commonTooltipCallbacks.title,
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    if (context.label === 'SaaS Afectadas (Reducción Ingresos)') {
+                                        label += ' (con reducción media del 22%)';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // AI Adoption Chart
+        const aiAdoptionCtx = document.getElementById('aiAdoptionChart');
+        if (aiAdoptionCtx) {
+            new Chart(aiAdoptionCtx, {
+                type: 'bar',
+                data: {
+                    labels: [
+                        wrapLabels('Nuevas Apps con IA (2025)', 16), 
+                        wrapLabels('Software Empresarial con IA Agentiva (2028)', 16), 
+                        wrapLabels('Empresas con IA Vertical (2026)', 16)
+                    ],
+                    datasets: [{
+                        label: 'Porcentaje de Adopción (%)',
+                        data: [75, 33, 80],
+                        backgroundColor: [CHART_COLORS.pink, CHART_COLORS.lightBlue, CHART_COLORS.yellow],
+                        borderColor: [CHART_COLORS.pink, CHART_COLORS.lightBlue, CHART_COLORS.yellow],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: '%' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { callbacks: commonTooltipCallbacks }
+                    }
+                }
+            });
+        }
+        
+        // AI Investment Chart
+        const aiInvestmentCtx = document.getElementById('aiInvestmentChart');
+        if (aiInvestmentCtx) {
+            new Chart(aiInvestmentCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2022', '2023', '2024'],
+                    datasets: [
+                        {
+                            label: 'Inversión en Infraestructura IA (Miles de Millones USD)',
+                            data: [5.1, null, 12.6], // Assuming 2023 data might not be in source, or interpolate
+                            borderColor: CHART_COLORS.orange,
+                            backgroundColor: CHART_COLORS.orange + '33', // Alpha for fill
+                            tension: 0.1,
+                            fill: true
+                        },
+                        {
+                            label: 'Inversión en IA Generativa (Miles de Millones USD)',
+                            data: [null, 28.7, 33.9], // (33.9 / 1.18 for 2023 approx)
+                            borderColor: CHART_COLORS.teal,
+                            backgroundColor: CHART_COLORS.teal + '33',
+                            tension: 0.1,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Miles de Millones USD' }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { 
+                            mode: 'index', 
+                            intersect: false,
+                            callbacks: commonTooltipCallbacks 
+                        }
+                    }
+                }
+            });
+        }
+
+        // Smooth scrolling for nav links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
